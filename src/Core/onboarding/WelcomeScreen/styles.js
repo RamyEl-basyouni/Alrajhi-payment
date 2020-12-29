@@ -10,8 +10,8 @@ const dynamicStyles = (appStyles) => {
       backgroundColor: appStyles.colorSet.mainThemeBackgroundColor,
     },
     logo: {
-      width: 110,
-      height: 110,
+      width: 50,
+      height: 30,
       justifyContent: "center",
       alignItems: "center",
       marginBottom: 20,

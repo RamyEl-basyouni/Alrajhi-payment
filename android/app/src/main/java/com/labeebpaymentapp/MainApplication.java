@@ -15,6 +15,7 @@ import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import org.reactnative.camera.RNCameraPackage;
 import java.util.List;
 
 
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new RNFirebaseStoragePackage());
       packages.add(new RNFirebaseMessagingPackage());
       packages.add(new RNFirebaseNotificationsPackage());
+      // packages.add(new RNCameraPackage());
       return packages;
     }
 

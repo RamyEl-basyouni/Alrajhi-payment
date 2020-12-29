@@ -27,7 +27,6 @@ const WelcomeScreen = (props) => {
   const tryToLoginFirst = async () => {
     setIsLoading(true);
     const token = await getToken();
-    debugger;
     // const user = {
     //   user: {
     //     username: "mghazal",
@@ -44,7 +43,6 @@ const WelcomeScreen = (props) => {
     //   },
     // };
     setIsLoading(false);
-    debugger;
     if (token != undefined) {
       const user = await getUser();
       let userData;
@@ -52,16 +50,6 @@ const WelcomeScreen = (props) => {
       props.setUserData(userData);
       props.navigation.navigate("MainStack", { user: userData });
     }
-
-    // authManager.retrievePersistedAuthUser().then((response) => {
-    //   setIsLoading(false);
-    //   debugger;
-    //   if (response) {
-    //     const user = response.user;
-    //     props.setUserData(user);
-    //     props.navigation.navigate("MainStack", { user: user });
-    //   }
-    // });
   };
 
   if (isLoading == true) {
@@ -73,23 +61,10 @@ const WelcomeScreen = (props) => {
       <View style={styles.logo}>
         <Image style={styles.logoImage} source={appStyles.iconSet.logo} />
       </View>
-      {/* <Text style={styles.title}>
-        {appConfig.onboardingConfig.welcomeTitle}
-      </Text> */}
-      {/* <Text style={styles.caption}>
-        {appConfig.onboardingConfig.welcomeCaption}
-      </Text> */}
       <Button
         containerStyle={styles.loginContainer}
         style={styles.loginText}
         onPress={() => {
-          // appConfig.isSMSAuthEnabled
-          //   ? props.navigation.navigate("Sms", {
-          //       isSigningUp: false,
-          //       appStyles,
-          //       appConfig,
-          //     })
-          //   :
           props.navigation.navigate("Login", { appStyles, appConfig });
         }}
       >
@@ -99,13 +74,6 @@ const WelcomeScreen = (props) => {
         containerStyle={styles.signupContainer}
         style={styles.signupText}
         onPress={() => {
-          // appConfig.isSMSAuthEnabled
-          //   ? props.navigation.navigate("Sms", {
-          //       isSigningUp: true,
-          //       appStyles,
-          //       appConfig,
-          //     })
-          //   :
           props.navigation.navigate("Signup", { appStyles, appConfig });
         }}
       >

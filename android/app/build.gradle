@@ -134,7 +134,7 @@ android {
         targetSdkVersion 29
         versionCode 3
         versionName "2.0"
-
+        missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {
         abi {
@@ -204,6 +204,8 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:19.0.0"
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
     implementation "com.google.firebase:firebase-storage:17.0.0"
+    implementation project(':react-native-camera')
+    
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";

@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { connect } from "react-redux";
-import { IMConversationListView } from "../Core/chat";
 import DynamicAppStyles from "../DynamicAppStyles";
 import { IMLocalized } from "../Core/localization/IMLocalization";
+import QRCodeScanner from "react-native-qrcode-scanner";
+import { RNCamera } from "react-native-camera";
 
 class ConversationsScreen extends Component {
   static navigationOptions = ({ screenProps }) => {
     let currentTheme = DynamicAppStyles.navThemeConstants[screenProps.theme];
     return {
-      headerTitle: IMLocalized("Messages"),
+      headerTitle: "QR Code Scanner",
       headerStyle: {
         backgroundColor: currentTheme.backgroundColor,
         borderBottomColor: currentTheme.hairlineColor,
@@ -18,42 +19,53 @@ class ConversationsScreen extends Component {
     };
   };
 
-  componentDidMount() {
-    const self = this;
-    self.props.navigation.setParams({
-      openDrawer: self.openDrawer,
-    });
-  }
-
-  onEmptyStatePress() {
-    this.props.navigation.navigate("Categories");
-  }
+  onSuccess = (e) => {
+    Linking.openURL(e.data).catch((err) =>
+      console.error("An error occured", err)
+    );
+  };
 
   render() {
-    const emptyStateConfig = {
-      title: IMLocalized("No Messages"),
-      description: IMLocalized(
-        "You can contact vendors by messaging them on the listings page. Your conversations with them will show up here."
-      ),
-      buttonName: IMLocalized("Browse Listings"),
-      onPress: () => {
-        this.onEmptyStatePress();
-      },
-    };
-
     return (
-      <View
-        style={{ flex: 1, marginLeft: 15, marginRight: 15, paddingTop: 10 }}
-      >
-        {/* <IMConversationListView
-          navigation={this.props.navigation}
-          appStyles={DynamicAppStyles}
-          emptyStateConfig={emptyStateConfig}
-        /> */}
-      </View>
+      <QRCodeScanner
+        onRead={this.onSuccess}
+        flashMode={RNCamera.Constants.FlashMode.torch}
+        topContent={
+          <Text style={styles.centerText}>
+            Go to{" "}
+            <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
+            your computer and scan the QR code.
+          </Text>
+        }
+        bottomContent={
+          <TouchableOpacity style={styles.buttonTouchable}>
+            <Text style={styles.buttonText}>OK. Got it!</Text>
+          </TouchableOpacity>
+        }
+      />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: "#777",
+  },
+  textBold: {
+    fontWeight: "500",
+    color: "#000",
+  },
+  buttonText: {
+    fontSize: 21,
+    color: "rgb(0,122,255)",
+  },
+  buttonTouchable: {
+    padding: 16,
+  },
+});
 
 const mapStateToProps = ({ auth }) => {
   return {
